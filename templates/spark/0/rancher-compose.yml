@@ -8,14 +8,14 @@
   uuid: spark-0
   questions:
     - variable: "spark_master_scale"
-      description: "Number of brokers nodes. Note: Recommended an odd number"
-      label: "Broker Nodes:"
+      description: "Number of spark master nodes. Note: Recommended an odd number"
+      label: "Spark Master Nodes:"
       required: true
       default: 1
       type: "int"
     - variable: "spark_slave_scale"
-      description: "Number of brokers nodes. Note: Recommended an odd number"
-      label: "Broker Nodes:"
+      description: "Number of spark slave nodes"
+      label: "Spark Slave Nodes:"
       required: true
       default: 1
       type: "int"
