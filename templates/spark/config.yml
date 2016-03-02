@@ -1,8 +1,8 @@
-name: Apache Zookeeper
+name: Apache Spark
 description: |
-  (Experimental) Zookeeper cluster
+  (Experimental) Spark cluster
 version: 1.5.2-rancher1
 category: clustering
-maintainer: "Raul Sanchez <rawmind@gmail.com>"
+maintainer: "Rancher"
 minimum_rancher_version: v0.56.0
 license:
