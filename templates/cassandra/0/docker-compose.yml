@@ -1,0 +1,22 @@
+cassandra-seeds:
+  image: autoshift/cassandra:v2.2
+  volumes:
+    - /var/lib/cassandra
+  environments:
+    - RANCHER_ENABLE=true
+  labels:
+    io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
+    io.rancher.container.hostname_override: container_name
+    io.rancher.scheduler.affinity:host_label: ${host_label}
+
+cassandra:
+  image: autoshift/cassandra:v2.2
+  volumes:
+    - /var/lib/cassandra
+  environments:
+    - RANCHER_ENABLE=true
+    - SEEDS_SERVICE=cassandra-seeds
+  labels:
+    io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}, io.rancher.stack_service.name=$${stack_name}/cassandra-seeds
+    io.rancher.container.hostname_override: container_name
+    io.rancher.scheduler.affinity:host_label: ${host_label}
