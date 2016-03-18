@@ -1,5 +1,5 @@
 cassandra:
-  image: autoshift/cassandra:v2.2
+  image: autoshift/cassandra:2.2
   volumes_from:
     - cassandra-volume
   environments:
