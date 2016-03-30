@@ -11,7 +11,7 @@ CassandraSeed:
     io.rancher.container.hostname_override: container_name
     io.rancher.scheduler.affinity:host_label: ${rack1_label}
   tty: true
-  image: usman/docker-rancher-cassandra
+  image: autoshift/cassandra:2.2
   stdin_open: true
   volumes:
     - /cassandra:/var/lib/cassandra
@@ -29,7 +29,7 @@ Cassandra1:
     io.rancher.container.hostname_override: container_name
     io.rancher.scheduler.affinity:host_label: ${rack1_label}
   tty: true
-  image: usman/docker-rancher-cassandra
+  image: autoshift/cassandra:2.2
   stdin_open: true
   volumes:
     - /cassandra:/var/lib/cassandra
@@ -49,7 +49,7 @@ Cassandra2:
     io.rancher.container.hostname_override: container_name
     io.rancher.scheduler.affinity:host_label: ${rack2_label}
   tty: true
-  image: usman/docker-rancher-cassandra
+  image: autoshift/cassandra:2.2
   stdin_open: true
   volumes:
     - /cassandra:/var/lib/cassandra
