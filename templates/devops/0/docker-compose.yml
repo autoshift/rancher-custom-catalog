@@ -59,7 +59,7 @@ ntpd:
     io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
     io.rancher.container.hostname_override: container_name
     io.rancher.container.pull_image: always
-  image: tutum/ntpdate
+  image: tutum/ntpd
   privileged: true
   mem_limit: 32000000
   memswap_limit: 32000000
