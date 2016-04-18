@@ -42,7 +42,7 @@
       label: "Kafka Interval (s):"
       required: true
       default: 60
-      type: "int"   
+      type: "int"
     - variable: "influxdb_scale"
       description: "Number of influxdb nodes. Note: Recommended an odd number"
       label: "influxdb Nodes:"
@@ -94,3 +94,7 @@ influxdb:
     request_line: ''
     healthy_threshold: 2
     response_timeout: 5000
+logrotate:
+  scale: 1
+ntpd:
+  scale: 1

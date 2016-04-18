@@ -39,3 +39,28 @@ influxdb:
   mem_limit: 1024000000
   memswap_limit: 1024000000
   cpu_shares: 512
+
+logrotate:
+  restart: always
+  labels:
+    io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
+    io.rancher.container.hostname_override: container_name
+    io.rancher.container.pull_image: always
+  image: autoshift/logrotate
+  volumes:
+    - /var/lib/docker/containers:/var/lib/docker/containers
+  mem_limit: 32000000
+  memswap_limit: 32000000
+  cpu_shares: 128
+
+ntpd:
+  restart: always
+  labels:
+    io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
+    io.rancher.container.hostname_override: container_name
+    io.rancher.container.pull_image: always
+  image: tutum/ntpdate
+  privileged: true
+  mem_limit: 32000000
+  memswap_limit: 32000000
+  cpu_shares: 128
