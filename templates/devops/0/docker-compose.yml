@@ -3,29 +3,49 @@ zk:
   labels:
     io.rancher.scheduler.affinity:host_label: ${host_label}
     io.rancher.container.hostname_override: container_name
+    io.rancher.sidekicks: zk-datavolume
   retain_ip: true
   image: rawmind/rancher-zk:3.4.6-1
-  volumes:
-  - /opt/zk/data
+  volumes_from:
+    - zk-datavolume
   environment:
-  - JVMFLAGS=-Xmx${zk_mem}m -Xms${zk_mem}m
-  - CONFD_INTERVAL=${zk_interval}
+    - JVMFLAGS=-Xmx${zk_mem}m -Xms${zk_mem}m
+    - CONFD_INTERVAL=${zk_interval}
+zk-datavolume:
+  net: none
+  labels:
+    io.rancher.container.hostname_override: container_name
+    io.rancher.container.start_once: true
+  volumes:
+    - /opt/zk/data
+  entrypoint: /bin/true
+  image: busybox
 
 kafka:
   restart: always
   labels:
     io.rancher.scheduler.affinity:host_label: ${host_label}
     io.rancher.container.hostname_override: container_name
+    io.rancher.sidekicks: kafka-datavolume
   retain_ip: true
   image: rawmind/rancher-kafka:0.9.0
-  volumes:
-  - /opt/kafka/data
+  volumes_from:
+    - kafka-datavolume
   environment:
-  - JVMFLAGS=-Xmx${kafka_mem}m -Xms${kafka_mem}m
-  - CONFD_INTERVAL=${kafka_interval}
-  - ZK_SERVICE=devops/zk
+    - JVMFLAGS=-Xmx${kafka_mem}m -Xms${kafka_mem}m
+    - CONFD_INTERVAL=${kafka_interval}
+    - ZK_SERVICE=devops/zk
   links:
-  - zk
+    - zk
+kafka-datavolume:
+  net: none
+  labels:
+    io.rancher.container.hostname_override: container_name
+    io.rancher.container.start_once: true
+  volumes:
+    - /opt/kafka/logs
+  entrypoint: /bin/true
+  image: busybox
 
 influxdb:
   restart: always
