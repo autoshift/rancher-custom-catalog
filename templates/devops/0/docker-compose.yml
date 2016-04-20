@@ -1,17 +1,22 @@
 zk:
   restart: always
+  labels:
+    io.rancher.scheduler.affinity:host_label: ${host_label}
+    io.rancher.container.hostname_override: container_name
+  retain_ip: true
   image: rawmind/rancher-zk:3.4.6-1
   volumes:
   - /opt/zk/data
   environment:
   - JVMFLAGS=-Xmx${zk_mem}m -Xms${zk_mem}m
   - CONFD_INTERVAL=${zk_interval}
-  labels:
-    io.rancher.scheduler.affinity:host_label: ${host_label}
-    io.rancher.container.hostname_override: container_name
 
 kafka:
   restart: always
+  labels:
+    io.rancher.scheduler.affinity:host_label: ${host_label}
+    io.rancher.container.hostname_override: container_name
+  retain_ip: true
   image: rawmind/rancher-kafka:0.9.0
   volumes:
   - /opt/kafka/data
@@ -21,9 +26,6 @@ kafka:
   - ZK_SERVICE=devops/zk
   links:
   - zk
-  labels:
-    io.rancher.scheduler.affinity:host_label: ${host_label}
-    io.rancher.container.hostname_override: container_name
 
 influxdb:
   restart: always
@@ -31,6 +33,7 @@ influxdb:
     io.rancher.scheduler.affinity:host_label: ${host_label}
     io.rancher.container.hostname_override: container_name
     io.rancher.container.pull_image: always
+  retain_ip: true
   image: autoshift/influxdb-docker:0.12
   environment:
     - ADMIN_USER=root
